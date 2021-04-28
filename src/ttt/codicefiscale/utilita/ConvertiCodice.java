@@ -1,7 +1,6 @@
 package ttt.codicefiscale.utilita;
 
-import static ttt.codicefiscale.utilita.GestisciStringhe.ordina;
-import static ttt.codicefiscale.utilita.GestisciStringhe.quanteConsonanti;
+import static ttt.codicefiscale.utilita.GestisciStringhe.*;
 
 public class ConvertiCodice {
     /**
@@ -10,7 +9,7 @@ public class ConvertiCodice {
      * @return Stringa con codice
      */
     public static String cognomeCodice(String cognome){
-        cognome = ordina(cognome);
+        cognome = GestisciStringhe.ordina(cognome);
         char[] ordinato = cognome.toCharArray();
         char[] ris = new char[3];
 
@@ -34,12 +33,12 @@ public class ConvertiCodice {
      * @return Stringa con codice
      */
     public static String nomeCodice(String nome){
-        nome = ordina(nome);
+        nome = GestisciStringhe.ordina(nome);
         char[] ordinato = nome.toCharArray();
         char[] ris = new char[3];
 
         if(nome.length() > 3){
-            if(quanteConsonanti(nome) >= 4){
+            if(GestisciStringhe.quanteConsonanti(nome) >= 4){
                 ris[0] = ordinato[0];
                 ris[1] = ordinato[2];
                 ris[2] = ordinato[3];
