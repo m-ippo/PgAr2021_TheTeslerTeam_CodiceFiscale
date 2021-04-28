@@ -5,7 +5,6 @@
  */
 package ttt.codicefiscale;
 
-import ttt.utils.console.input.ConsoleInput;
 import ttt.utils.xml.document.XMLDocument;
 import ttt.utils.xml.document.XMLElement;
 import ttt.utils.xml.engine.interfaces.IXMLElement;
@@ -16,12 +15,11 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
- * @author gabri
+ * @author TTT
  */
 public class CodiceFiscaleMain {
 
