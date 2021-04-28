@@ -18,10 +18,9 @@ public class Controllo {
         boolean valido = matcher.find();
         if(!valido){
             return false;
-        }else {
-            if (!ControllaNumero(matcher.group(5)) || !ControllaMese((matcher.group(4)))) {
-                return false;
-            }
+        }
+        if (!ControllaNumero(matcher.group(5)) || !ControllaMese((matcher.group(4)))) {
+            return false;
         }
         return true;
     }
