@@ -25,13 +25,13 @@ public class Persone extends XMLElement {
     }
 
     @EngineMethod(MethodType = MethodType.SET)
-    @Tag(Name = "size")
+    @Tag(Name = "numero")
     public void setSize(String value) {
         size = Integer.parseInt(value);
     }
 
     @EngineMethod(MethodType = MethodType.GET)
-    @Tag(Name = "size", ValueType = Integer.class)
+    @Tag(Name = "numero", ValueType = Integer.class)
     public Integer setSize() {
         return size;
     }
