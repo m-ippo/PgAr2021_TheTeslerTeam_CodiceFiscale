@@ -1,21 +1,44 @@
-package ttt.codicefiscale.utilita;
+package ttt.codicefiscale.elementi;
 
-public class Persona {
+import ttt.codicefiscale.utilita.ConvertiCodice;
+import ttt.utils.xml.document.XMLElement;
+import ttt.utils.xml.engine.annotations.Element;
+import ttt.utils.xml.engine.annotations.EngineMethod;
+import ttt.utils.xml.engine.enums.MethodType;
+
+@Element(Name = "persona")
+public class Persona extends XMLElement {
 
     private String nome;
     private String cognome;
     private String sesso;
-    private Data data_di_nascita;
+    private DataNascita data_di_nascita;
     private String comune_di_nascita;
     private char tasse;
     private String codice_fiscale;
 
-    public Persona(String nome, String cognome, String sesso, Data data_di_nascita, String comune_di_nascita) {
+    /*
+    public Persona(String nome, String cognome, String sesso, DataNascita data_di_nascita, String comune_di_nascita) {
         this.nome = nome;
         this.cognome = cognome;
         this.sesso = sesso;
         this.data_di_nascita = data_di_nascita;
         this.comune_di_nascita = comune_di_nascita;
+    }*/
+    /**
+     *
+     */
+    @EngineMethod(MethodType = MethodType.CALC)
+    public void init() {
+        nome = getFirstElement("nome").getValue();
+        cognome = getFirstElement("cognome").getValue();
+        sesso = getFirstElement("sesso").getValue();
+        comune_di_nascita = getFirstElement("comune_nascita").getValue();
+        data_di_nascita = (DataNascita) getFirstElement("data_nascita");
+    }
+
+    public Persona() {
+        super("persona");
     }
 
     public String getNome() {
@@ -30,7 +53,7 @@ public class Persona {
         return sesso;
     }
 
-    public Data getDataDiNascita() {
+    public DataNascita getDataDiNascita() {
         return data_di_nascita;
     }
 
@@ -52,13 +75,13 @@ public class Persona {
                 sesso, data_di_nascita.getDataStringa(), comune_di_nascita);
     }
 
-    public void generaCodiceFiscale(){
+    public void generaCodiceFiscale() {
         this.codice_fiscale = ""; // da finire
     }
 
-    public String getCodiceParziale(){
-        String codice_parziale = ConvertiCodice.cognomeCodice(cognome)  + ConvertiCodice.nomeCodice(nome);
-        if(sesso.equals("M")){
+    public String getCodiceParziale() {
+        String codice_parziale = ConvertiCodice.cognomeCodice(cognome) + ConvertiCodice.nomeCodice(nome);
+        if (sesso.equals("M")) {
             codice_parziale += ConvertiCodice.dataCodice(data_di_nascita, true);
         } else {
             codice_parziale += ConvertiCodice.dataCodice(data_di_nascita, false);

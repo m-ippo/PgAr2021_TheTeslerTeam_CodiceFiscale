@@ -1,5 +1,7 @@
 package ttt.codicefiscale.utilita;
 
+import ttt.codicefiscale.elementi.Persona;
+import ttt.codicefiscale.elementi.DataNascita;
 import static ttt.codicefiscale.utilita.GestisciStringhe.*;
 
 public class ConvertiCodice {
@@ -56,7 +58,7 @@ public class ConvertiCodice {
         return new String(ris);
     }
 
-    public static String dataCodice(Data d, boolean uomo){
+    public static String dataCodice(DataNascita d, boolean uomo){
 
         String ris = "";
         int anno = d.getAnno() % 100;
