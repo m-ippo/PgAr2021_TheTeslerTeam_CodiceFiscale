@@ -26,11 +26,11 @@ public class CodiceFiscaleMain {
     public static void main(String[] args) throws IOException {
 
         XMLElement s = new XMLElement("codfis");
-        s.setValue("FDANHL01Z01Z918V");
-        //System.out.println(Controllo.controllo(s));
+        s.setValue("FDANHJ01S23D938V");
+        System.out.println(ControlloCodiceFiscale.Controllo(s));
 
 
-
+/*
         JFileChooser chooser = new JFileChooser();
         String selezione = "GO";
         FileFilter filter = new FileNameExtensionFilter("XML File", "xml");
@@ -43,6 +43,8 @@ public class CodiceFiscaleMain {
         List<IXMLElement> lista = doc.getElements();
         doc.getElements().get(0);
         stampa(lista);
+*/
+
     }
 
     public static void stampa(List<IXMLElement> s){

@@ -117,7 +117,7 @@ public class ConvertiCodice {
         return codice;
     }
 
-    private static int getValoreDispari(char c){
+    public static int getValoreDispari(char c){
         int valore = 0;
 
         switch (c){
@@ -161,7 +161,7 @@ public class ConvertiCodice {
         return valore;
     }
 
-    private static int getValorePari(char c){
+    public static int getValorePari(char c){
         int valore = 0;
 
         switch (c){
@@ -205,7 +205,7 @@ public class ConvertiCodice {
         return valore;
     }
 
-    private static String getCarattereControllo(int valore){
+    public static String getCarattereControllo(int valore){
         String ris = "";
 
         switch (valore){
