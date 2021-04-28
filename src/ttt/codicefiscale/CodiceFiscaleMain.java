@@ -5,6 +5,8 @@
  */
 package ttt.codicefiscale;
 
+import ttt.utils.console.input.ConsoleInput;
+
 /**
  *
  * @author gabri
@@ -12,7 +14,9 @@ package ttt.codicefiscale;
 public class CodiceFiscaleMain {
 
     public static void main(String[] args) {
-        System.out.println("ciao");
+        ConsoleInput ci = ConsoleInput.getInstance();
+        int i = ci.readInteger("d");
+        System.out.println(i);
 
     }
     
