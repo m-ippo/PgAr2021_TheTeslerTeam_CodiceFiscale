@@ -11,6 +11,9 @@ import ttt.utils.xml.document.XMLElement;
 import ttt.utils.xml.engine.interfaces.IXMLElement;
 import ttt.utils.xml.io.XMLReader;
 
+import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,19 +29,27 @@ public class CodiceFiscaleMain {
 
         XMLElement s = new XMLElement("codfis");
         s.setValue("FDANHL01Z01Z918V");
-        System.out.println(Controllo.controllo(s));
+        //System.out.println(Controllo.controllo(s));
 
-        XMLReader c = new XMLReader(new File("C:\\Users\\user\\Documents\\GitHub\\PGAR_2021_TheTeslerTeam_CodiceFiscale\\src\\ttt\\codicefiscale\\resources\\inputPersone.xml"));
+
+
+        JFileChooser chooser = new JFileChooser();
+        String selezione = "GO";
+        FileFilter filter = new FileNameExtensionFilter("XML File", "xml");
+        chooser.addChoosableFileFilter(filter);
+        chooser.showDialog(null, selezione);
+        File f = chooser.getSelectedFile();
+
+        XMLReader c = new XMLReader(f);
         XMLDocument doc = c.readDocument();
         List<IXMLElement> lista = doc.getElements();
         doc.getElements().get(0);
-        //stampa(lista);
-
+        stampa(lista);
     }
 
     public static void stampa(List<IXMLElement> s){
         s.forEach(elemento -> {
-            System.out.println(elemento.getName());
+            System.out.println(elemento.getValue());
             if(elemento.hasSubElements()){
                 stampa(elemento.getElements());
             }
