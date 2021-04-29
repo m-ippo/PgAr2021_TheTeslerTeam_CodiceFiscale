@@ -4,6 +4,7 @@ import ttt.codicefiscale.utilita.ConvertiCodice;
 import ttt.utils.xml.document.XMLElement;
 import ttt.utils.xml.engine.annotations.Element;
 import ttt.utils.xml.engine.annotations.EngineMethod;
+import ttt.utils.xml.engine.annotations.Tag;
 import ttt.utils.xml.engine.enums.MethodType;
 
 @Element(Name = "persona")
@@ -16,6 +17,8 @@ public class Persona extends XMLElement {
     private String comune_di_nascita;
     private char carattere_di_controllo;
     private String codice_fiscale;
+    
+    private Integer id;
 
     /*
     public Persona(String nome, String cognome, String sesso, DataNascita data_di_nascita, String comune_di_nascita) {
@@ -45,6 +48,12 @@ public class Persona extends XMLElement {
         super("persona");
     }
 
+    @EngineMethod(MethodType = MethodType.SET)
+    @Tag(Name = "id")
+    public void setID(String value){
+        id = Integer.parseInt(value);
+    }
+    
     public String getNome() {
         return nome;
     }

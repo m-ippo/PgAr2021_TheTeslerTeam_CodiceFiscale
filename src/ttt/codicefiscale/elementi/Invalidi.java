@@ -15,25 +15,24 @@ import ttt.utils.xml.engine.enums.MethodType;
  *
  * @author gabri
  */
-@Element(Name = "persone", CanHaveValue = false)
-public class Persone extends XMLElement {
+@Element(Name = "invalidi")
+public class Invalidi extends XMLElement {
 
-    private Integer numero = 0;
+    private Integer size = 0;
 
-    public Persone() {
-        super("persone");
+    public Invalidi() {
+        super("invalidi");
     }
 
     @EngineMethod(MethodType = MethodType.SET)
     @Tag(Name = "numero")
     public void setSize(String value) {
-        numero = Integer.parseInt(value);
+        size = Integer.parseInt(value);
     }
 
     @EngineMethod(MethodType = MethodType.GET)
     @Tag(Name = "numero", ValueType = Integer.class)
     public Integer setSize() {
-        return numero;
+        return size;
     }
-
 }

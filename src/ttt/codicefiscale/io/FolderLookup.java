@@ -10,8 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -27,14 +26,16 @@ public class FolderLookup {
     }
 
     public void showSelectFolder() {
-        JFileChooser chooser = new JFileChooser();
-        chooser.setDialogTitle("Seleziona cartella di ricerca");
-        chooser.setMultiSelectionEnabled(false);
-        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        int option = chooser.showOpenDialog(null);
-        if (option == JFileChooser.APPROVE_OPTION) {
-            changeDirectory(chooser.getSelectedFile());
-        }
+        SwingUtilities.invokeLater(() -> {
+            JFileChooser chooser = new JFileChooser();
+            chooser.setDialogTitle("Seleziona cartella di ricerca");
+            chooser.setMultiSelectionEnabled(false);
+            chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            int option = chooser.showOpenDialog(null);
+            if (option == JFileChooser.APPROVE_OPTION) {
+                changeDirectory(chooser.getSelectedFile());
+            }
+        });
     }
 
     public void changeDirectory(File newDirectory) {
