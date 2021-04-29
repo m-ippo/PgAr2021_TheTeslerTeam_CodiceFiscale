@@ -18,7 +18,7 @@ import ttt.utils.xml.engine.enums.MethodType;
 @Element(Name = "persone", CanHaveValue = false)
 public class Persone extends XMLElement {
 
-    private Integer size = 0;
+    private Integer numero = 0;
 
     public Persone() {
         super("persone");
@@ -27,13 +27,13 @@ public class Persone extends XMLElement {
     @EngineMethod(MethodType = MethodType.SET)
     @Tag(Name = "numero")
     public void setSize(String value) {
-        size = Integer.parseInt(value);
+        numero = Integer.parseInt(value);
     }
 
     @EngineMethod(MethodType = MethodType.GET)
     @Tag(Name = "numero", ValueType = Integer.class)
     public Integer setSize() {
-        return size;
+        return numero;
     }
 
 }
