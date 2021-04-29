@@ -20,6 +20,7 @@ import ttt.codicefiscale.elementi.Nome;
 import ttt.codicefiscale.elementi.Persona;
 import ttt.codicefiscale.elementi.Persone;
 import ttt.codicefiscale.elementi.Sesso;
+import ttt.codicefiscale.utilita.ConvertiCodice;
 import ttt.utils.xml.document.XMLDocument;
 import ttt.utils.xml.engine.XMLEngine;
 import ttt.utils.xml.io.XMLReader;
@@ -37,13 +38,16 @@ public class CodiceFiscaleMain {
         s.setValue("FDANHJ01S23D938V");
         System.out.println(ControlloCodiceFiscale.Controllo(s));
          */
+        for (int i = 0; i < 26; i++) {
+            System.out.println(i + "\t" + ConvertiCodice.getCarattereControllo(i));
+        }
 
- /*JFileChooser chooser = new JFileChooser();
+        /*JFileChooser chooser = new JFileChooser();
         String selezione = "GO";
         FileFilter filter = new FileNameExtensionFilter("XML File", "xml");
         chooser.addChoosableFileFilter(filter);
         chooser.showDialog(null, selezione);*/
-        File f = new File("C:\\Users\\gabri\\Downloads\\codiciFiscali.xml");//chooser.getSelectedFile();
+ /*File f = new File("C:\\Users\\gabri\\Downloads\\codiciFiscali.xml");//chooser.getSelectedFile();
         File f1 = new File("C:\\Users\\gabri\\Downloads\\inputPersone.xml");//chooser.getSelectedFile();
         File f2 = new File("C:\\Users\\gabri\\Downloads\\comuni.xml");//chooser.getSelectedFile();
 
@@ -54,9 +58,6 @@ public class CodiceFiscaleMain {
             XMLDocument doc = c.readDocument();
             XMLDocument doc1 = c1.readDocument();
             XMLDocument doc2 = c2.readDocument();
-            /*List<IXMLElement> lista = doc.getElements();
-            doc.getElements().get(0);
-            stampa(lista);*/
             XMLEngine engine = new XMLEngine(doc, Codice.class, Codici.class);
             XMLEngine engine1 = new XMLEngine(doc1, Persone.class, Persona.class, DataNascita.class, Cognome.class, Nome.class, Sesso.class, ComuneNascita.class);
             XMLEngine engine2 = new XMLEngine(doc2, Comune.class, Comuni.class, Nome.class, Codice.class);
@@ -75,8 +76,7 @@ public class CodiceFiscaleMain {
             lWriter.writeDocument(d);
             lWriter1.writeDocument(d1);
             lWriter2.writeDocument(d2);
-        }
-
+        }*/
     }
 
     public static void stampa(List<IXMLElement> s) {
