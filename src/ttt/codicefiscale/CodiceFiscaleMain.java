@@ -17,7 +17,6 @@ import ttt.codicefiscale.flow.GestioneMenu;
 public class CodiceFiscaleMain {
 
     public static void main(String[] args) throws IOException {
-
         GestioneMenu gm = new GestioneMenu();
     }
 

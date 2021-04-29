@@ -7,7 +7,6 @@ package ttt.codicefiscale.flow;
 
 import java.io.File;
 import java.util.ArrayList;
-import javax.swing.SwingUtilities;
 import ttt.codicefiscale.io.FolderLookup;
 import ttt.codicefiscale.io.XMLLoader;
 import ttt.utils.console.menu.Menu;
@@ -15,7 +14,7 @@ import ttt.utils.console.menu.utils.Pair;
 
 /**
  *
- * @author gabri
+ * @author TTT
  */
 public class GestioneMenu {
 
@@ -33,15 +32,33 @@ public class GestioneMenu {
     private void init() {
         main_menu.reset();
         main_menu.addOption("Cambia cartella di ricerca", () -> {
-            SwingUtilities.invokeLater(() -> {
-                fp.showSelectFolder();
-            });
+            //SwingUtilities.invokeLater(() -> {
+            fp.showSelectFolder();
+            //});
             return null;
         });
-        main_menu.addOption("Seleziona file base", () -> {
+        main_menu.addOption("Seleziona i file di base", () -> {
             fileBase = XMLLoader.selezionaFiles(fp);
+            if (fileBase != null) {
+                main_menu.addLazyExecutable(() -> {
+                    main_menu.removeOption(2);
+                    main_menu.removeOption(2);
+                    return null;
+                });
+                proceed();
+            }
             return null;
         });
         main_menu.paintMenu();
+    }
+
+    private void proceed() {
+        //Generare gli XMLDocument dei files aperti
+        main_menu.addOption("Genera codici fiscali", () -> {
+            //Generare i codici fiscali del XMLDocumnt aperto
+            //Procedere con i calcoli e i controlli per vedere quali codici fiscali sono presenti.
+            //Aggiungere l'opzione di salvataggio del file appena generato
+            return null;
+        });
     }
 }
