@@ -5,6 +5,7 @@
  */
 package ttt.codicefiscale.flow;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,7 +37,8 @@ public class ControlloElementi {
 
     ArrayList<Codice> invalidi = new ArrayList<>();
     ArrayList<Codice> spaiati = new ArrayList<>();
-
+    ArrayList<Codice> validi = new ArrayList<>();
+    
     public void controllaCodici(XMLDocument document) {
         invalidi.clear();
         spaiati.clear();
@@ -50,5 +52,11 @@ public class ControlloElementi {
                 }
             }
         });
+    }
+    
+    public XMLDocument generaOutput(File file_output){
+        XMLDocument document = new XMLDocument(file_output);
+        
+        return document;
     }
 }
