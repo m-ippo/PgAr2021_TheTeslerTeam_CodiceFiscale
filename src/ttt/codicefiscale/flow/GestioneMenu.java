@@ -14,8 +14,7 @@ import ttt.utils.console.menu.Menu;
 import ttt.utils.console.menu.utils.Pair;
 
 /**
- *
- * @author gabri
+ * Classe per la gestione delle operazioni da compiere
  */
 public class GestioneMenu {
 

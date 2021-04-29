@@ -1,9 +1,30 @@
 package ttt.codicefiscale.utilita;
 
+import ttt.codicefiscale.elementi.Comune;
 import ttt.codicefiscale.elementi.Persona;
 import ttt.codicefiscale.elementi.DataNascita;
+import ttt.codicefiscale.io.FolderLookup;
+import ttt.codicefiscale.io.XMLLoader;
+import ttt.utils.xml.document.XMLDocument;
+import ttt.utils.xml.document.XMLElement;
+import ttt.utils.xml.engine.interfaces.IXMLElement;
+import ttt.utils.xml.io.XMLReader;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ConvertiCodice {
+
+    private static XMLDocument lista_comuni;
+    private static boolean comuni_gia_letti = false;
+
+    private static void leggiComuni() throws IOException {
+        File f = new File("src/ttt/codicefiscale/resources/comuni.xml");
+        lista_comuni = XMLLoader.loadDocument(XMLLoader.TipoXML.COMUNI, f, new File("non_usable.xml"));
+        comuni_gia_letti = true;
+    }
 
     /**
      * Metodo che ritorna una stringa corrispondente alle tre lettere del
@@ -120,11 +141,11 @@ public class ConvertiCodice {
         return ris;
     }
 
-    public static String comuneCodice(String s) {
-        return s;
-    }
+    public static String creaCodicePersona(Persona p) throws IOException {
 
-    public static String creaCodicePersona(Persona p) {
+        if(!comuni_gia_letti){
+            leggiComuni();
+        }
 
         String codice = p.getCodiceParziale();
 
@@ -341,5 +362,26 @@ public class ConvertiCodice {
         }*/
         ris += "" + (char) (((int) 'A') + valore);
         return ris;
+    }
+
+    public static String comuneCodice(String s) {
+
+        if(cercaCodiceComune(lista_comuni.getElements(), s) != null){
+            return cercaCodiceComune(lista_comuni.getElements(), s);
+        }
+
+        return null;
+    }
+
+    public static String cercaCodiceComune(List<IXMLElement> l, String nome_comune){
+
+        for(int i = 0; i < l.get(0).getElements().size(); i++){
+            if(l.get(0).getElements().get(i).getElements().get(0).getValue().equals(nome_comune)){
+                return l.get(0).getElements().get(i).getElements().get(1).getValue();
+            }
+        }
+
+        return null;
+
     }
 }

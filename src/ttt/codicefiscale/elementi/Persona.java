@@ -14,7 +14,7 @@ public class Persona extends XMLElement {
     private String sesso;
     private DataNascita data_di_nascita;
     private String comune_di_nascita;
-    private char tasse;
+    private char carattere_di_controllo;
     private String codice_fiscale;
 
     /*
@@ -24,7 +24,11 @@ public class Persona extends XMLElement {
         this.sesso = sesso;
         this.data_di_nascita = data_di_nascita;
         this.comune_di_nascita = comune_di_nascita;
-    }*/
+    }
+    */
+
+
+
     /**
      *
      */
@@ -62,7 +66,7 @@ public class Persona extends XMLElement {
     }
 
     public char getTasse() {
-        return tasse;
+        return carattere_di_controllo;
     }
 
     public String getCodiceFiscale() {
