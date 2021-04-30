@@ -504,20 +504,32 @@ public class CodiciGUI extends javax.swing.JFrame {
     private void loadXMLsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadXMLsActionPerformed
         try {
             comuni_xml = XMLLoader.loadDocument(XMLLoader.TipoXML.COMUNI, comuni, new File("comuni.tmp"));
+            if (comuni_xml.getFirstElement("comuni") == null) {
+                throw new NullPointerException("File 'comuni' non corretto.");
+            }
         } catch (NullPointerException | IOException ex) {
             res_load.setText(ex.getMessage());
+            res_load.setVisible(true);
             return;
         }
         try {
             codicifiscali_xml = XMLLoader.loadDocument(XMLLoader.TipoXML.CODICI_FISCALI, codicifiscali, new File("codici.tmp"));
+            if (codicifiscali_xml.getFirstElement("codici") == null) {
+                throw new NullPointerException("File 'codici fiscali' non corretto.");
+            }
         } catch (NullPointerException | IOException ex) {
             res_load.setText(ex.getMessage());
+            res_load.setVisible(true);
             return;
         }
         try {
             persone_xml = XMLLoader.loadDocument(XMLLoader.TipoXML.PERSONE, persone, new File("persone.tmp"));
+            if (persone_xml.getFirstElement("persone") == null) {
+                throw new NullPointerException("File 'persone' non corretto.");
+            }
         } catch (NullPointerException | IOException ex) {
             res_load.setText(ex.getMessage());
+            res_load.setVisible(true);
             return;
         }
         ControlloCodiceFiscale.setConvertitore(new ConvertiCodice(comuni_xml));
