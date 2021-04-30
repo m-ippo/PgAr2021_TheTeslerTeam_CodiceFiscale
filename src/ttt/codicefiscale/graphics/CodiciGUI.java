@@ -465,21 +465,18 @@ public class CodiciGUI extends javax.swing.JFrame {
     private void loadXMLsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadXMLsActionPerformed
         try {
             comuni_xml = XMLLoader.loadDocument(XMLLoader.TipoXML.COMUNI, comuni, new File("comuni.tmp"));
-            System.out.println("Caricati comuni");
         } catch (NullPointerException | IOException ex) {
             res_load.setText(ex.getMessage());
             return;
         }
         try {
             codicifiscali_xml = XMLLoader.loadDocument(XMLLoader.TipoXML.CODICI_FISCALI, codicifiscali, new File("codici.tmp"));
-            System.out.println("Caricati codici");
         } catch (NullPointerException | IOException ex) {
             res_load.setText(ex.getMessage());
             return;
         }
         try {
             persone_xml = XMLLoader.loadDocument(XMLLoader.TipoXML.PERSONE, persone, new File("persone.tmp"));
-            System.out.println("Caricati persone");
         } catch (NullPointerException | IOException ex) {
             res_load.setText(ex.getMessage());
             return;
