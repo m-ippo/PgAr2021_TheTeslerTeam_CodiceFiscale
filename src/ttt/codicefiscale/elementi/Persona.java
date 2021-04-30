@@ -104,7 +104,6 @@ public class Persona extends XMLElement {
             return codice_parziale;
         }
         return null;
-
     }
 
 }

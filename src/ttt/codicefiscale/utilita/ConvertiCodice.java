@@ -379,8 +379,6 @@ public class ConvertiCodice {
                 return l.get(0).getElements().get(i).getElements().get(1).getValue();
             }
         }
-
         return null;
-
     }
 }
