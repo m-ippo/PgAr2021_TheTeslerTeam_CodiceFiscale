@@ -2,6 +2,7 @@ package ttt.codicefiscale.utilita;
 
 import ttt.utils.xml.document.XMLElement;
 
+import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,7 +19,7 @@ public class ControlloCodiceFiscale {
      * @param elemento
      * @return
      */
-    public static boolean Controllo(XMLElement elemento) {
+    public static boolean Controllo(XMLElement elemento) throws IOException {
         Pattern pattern = Pattern.compile("([A-Z]{3})([A-Z]{3})([0-9]{2})([A-Z]{1})([0-9]{2})([A-Z]{1})([0-9]{3})([A-Z]{1})");
         Matcher matcher = pattern.matcher(elemento.getValue());
         boolean valido = matcher.find();
@@ -84,10 +85,12 @@ public class ControlloCodiceFiscale {
 
         if(isVocale(prima) && (isConsonanteNonX(seconda) || isConsonanteNonX(terza))) return false;
 
+        // mancano i casi
+
         return true;
     }
 
-    private static boolean ControllaComune(String codice_comune){
+    private static boolean ControllaComune(String codice_comune) throws IOException {
         return ConvertiCodice.codiceComuneIsPresent(codice_comune);
     }
 

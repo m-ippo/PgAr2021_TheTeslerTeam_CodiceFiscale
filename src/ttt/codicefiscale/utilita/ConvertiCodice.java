@@ -382,7 +382,11 @@ public class ConvertiCodice {
         return null;
     }
 
-    public static boolean codiceComuneIsPresent(String codice_comune){
+    public static boolean codiceComuneIsPresent(String codice_comune) throws IOException {
+
+        if(!comuni_gia_letti){
+            leggiComuni();
+        }
         Optional<IXMLElement> comune = lista_comuni.getFirstElement("comuni").getElements().stream().filter(ixmlElement ->
         {
             Comune c = (Comune) ixmlElement;
