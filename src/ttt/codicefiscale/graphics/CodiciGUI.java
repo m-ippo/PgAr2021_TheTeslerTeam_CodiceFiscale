@@ -17,6 +17,8 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import ttt.codicefiscale.flow.ControlloElementi;
 import ttt.codicefiscale.io.XMLLoader;
+import ttt.codicefiscale.utilita.ControlloCodiceFiscale;
+import ttt.codicefiscale.utilita.ConvertiCodice;
 import ttt.utils.console.menu.utils.Pair;
 import ttt.utils.xml.document.XMLDocument;
 import ttt.utils.xml.io.XMLWriter;
@@ -31,7 +33,9 @@ public class CodiciGUI extends javax.swing.JFrame {
     private File persone;
     private File codicifiscali;
 
-    private ArrayList<Pair<XMLLoader.TipoXML, XMLDocument>> documenti = new ArrayList<>();
+    private XMLDocument comuni_xml;
+    private XMLDocument persone_xml;
+    private XMLDocument codicifiscali_xml;
     ControlloElementi ce = new ControlloElementi();
 
     /**
@@ -398,11 +402,8 @@ public class CodiciGUI extends javax.swing.JFrame {
 
 
     private void generateCodesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateCodesActionPerformed
-        Optional<Pair<XMLLoader.TipoXML, XMLDocument>> _persone = documenti.stream().filter((t) -> {
-            return t.getKey().equals(XMLLoader.TipoXML.PERSONE);
-        }).findFirst();
-        if (_persone.isPresent()) {
-            ce.riempiTabella(_persone.get().getValue());
+        if (persone_xml != null) {
+            ce.riempiTabella(persone_xml);
             checkCodes.setEnabled(true);
             generateCodes.setEnabled(false);
             res_gen_codes.setText("Sono stati generati " + ce.getSize() + " codici fiscali");
@@ -410,12 +411,8 @@ public class CodiciGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_generateCodesActionPerformed
 
     private void checkCodesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkCodesActionPerformed
-        // TODO add your handling code here:
-        Optional<Pair<XMLLoader.TipoXML, XMLDocument>> _codici = documenti.stream().filter((t) -> {
-            return t.getKey().equals(XMLLoader.TipoXML.CODICI_FISCALI);
-        }).findFirst();
-        if (_codici.isPresent()) {
-            ce.controllaCodici(_codici.get().getValue());
+        if (codicifiscali_xml != null) {
+            ce.controllaCodici(codicifiscali_xml);
             checkCodes.setEnabled(false);
             saveToFile.setEnabled(true);
             res_cont_codes.setText("Sono stati controllati " + ce.getSize() + "codici");
@@ -463,28 +460,28 @@ public class CodiciGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_selectCodiciActionPerformed
 
     private void loadXMLsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadXMLsActionPerformed
-        documenti.clear();
         try {
-            documenti.add(new Pair<>(XMLLoader.TipoXML.COMUNI, XMLLoader.loadDocument(XMLLoader.TipoXML.COMUNI, comuni, new File("comuni.tmp"))));
+            comuni_xml = XMLLoader.loadDocument(XMLLoader.TipoXML.COMUNI, comuni, new File("comuni.tmp"));
             System.out.println("Caricati comuni");
-        } catch (IOException ex) {
+        } catch (NullPointerException | IOException ex) {
             res_load.setText(ex.getMessage());
             return;
         }
         try {
-            documenti.add(new Pair<>(XMLLoader.TipoXML.CODICI_FISCALI, XMLLoader.loadDocument(XMLLoader.TipoXML.CODICI_FISCALI, codicifiscali, new File("codici.tmp"))));
+            codicifiscali_xml = XMLLoader.loadDocument(XMLLoader.TipoXML.CODICI_FISCALI, codicifiscali, new File("codici.tmp"));
             System.out.println("Caricati codici");
-        } catch (IOException ex) {
+        } catch (NullPointerException | IOException ex) {
             res_load.setText(ex.getMessage());
             return;
         }
         try {
-            documenti.add(new Pair<>(XMLLoader.TipoXML.PERSONE, XMLLoader.loadDocument(XMLLoader.TipoXML.PERSONE, persone, new File("persone.tmp"))));
+            persone_xml = XMLLoader.loadDocument(XMLLoader.TipoXML.PERSONE, persone, new File("persone.tmp"));
             System.out.println("Caricati persone");
-        } catch (IOException ex) {
+        } catch (NullPointerException | IOException ex) {
             res_load.setText(ex.getMessage());
             return;
         }
+        ControlloCodiceFiscale.setConvertitore(new ConvertiCodice(comuni_xml));
         selectPanel.setEnabled(false);
         loadPanel.setEnabled(false);
         selectCodici.setEnabled(false);

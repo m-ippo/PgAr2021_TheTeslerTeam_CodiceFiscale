@@ -6,7 +6,6 @@
 package ttt.codicefiscale.flow;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,7 +17,6 @@ import ttt.codicefiscale.elementi.Persona;
 import ttt.codicefiscale.elementi.Persone;
 import ttt.codicefiscale.elementi.Spaiati;
 import ttt.codicefiscale.utilita.ControlloCodiceFiscale;
-import ttt.codicefiscale.utilita.ConvertiCodice;
 import ttt.utils.xml.document.XMLDocument;
 import ttt.utils.xml.document.XMLTag;
 import ttt.utils.xml.engine.interfaces.IXMLElement;
@@ -40,18 +38,16 @@ public class ControlloElementi {
         codici_persone.clear();
         persone.getFirstElement("persone").getElements().forEach((persona) -> {
             Persona p = (Persona) persona;
-            String codiceFiscale = null;
-
+            String codiceFiscale;
             codiceFiscale = getConvertitore().creaCodicePersona(p);
-
             codici_persone.put(codiceFiscale, p);
         });
     }
 
-    public int getSize(){
+    public int getSize() {
         return codici_persone.size();
     }
-    
+
     ArrayList<Codice> invalidi = new ArrayList<>();
     ArrayList<Codice> spaiati = new ArrayList<>();
     ArrayList<Codice> validi = new ArrayList<>();
@@ -73,7 +69,7 @@ public class ControlloElementi {
 
     public XMLDocument generaOutput(File file_output) {
         XMLDocument document = new XMLDocument(file_output);
-        Output elemento1 = new Output();
+        Output tab_output = new Output();
 
         Persone persone = new Persone();
         XMLTag tag_numero_persone = new XMLTag("numero");
@@ -89,27 +85,29 @@ public class ControlloElementi {
             p111.addSubElement(codice_fiscale);
         });
 
-        elemento1.addSubElement(persone);
+        tab_output.addSubElement(persone);
 
         Codici codici = new Codici();
 
         Invalidi invalido = new Invalidi();
         XMLTag tag_numero_invalidi = new XMLTag("numero");
+        tag_numero_invalidi.setValue("" + invalidi.size());
         invalido.addTag(tag_numero_invalidi);
         invalidi.forEach(cod -> {
             invalido.addSubElement(cod);
         });
-        codici.addSubElement(codici);
+        codici.addSubElement(invalido);
 
         Spaiati spaiato = new Spaiati();
         XMLTag tag_numero_spaiati = new XMLTag("numero");
-        invalido.addTag(tag_numero_spaiati);
+        tag_numero_spaiati.setValue("" + spaiati.size());
+        spaiato.addTag(tag_numero_spaiati);
         spaiati.forEach(cod -> {
             spaiato.addSubElement(cod);
         });
         codici.addSubElement(spaiato);
-        elemento1.addSubElement(codici);
-        document.addSubElement(elemento1);
+        tab_output.addSubElement(codici);
+        document.addSubElement(tab_output);
         return document;
     }
 }
