@@ -85,7 +85,7 @@ public class ControlloCodiceFiscale {
 
         if(isVocale(prima) && (isConsonanteNonX(seconda) || isConsonanteNonX(terza))) return false;
         if(isVocale(prima) && isX(seconda) && isConsonanteNonX(terza)) return false;
-        if(isVocale(prima) && isConsonanteNonX(terza) && isX(seconda)) return false;
+        if(isVocale(prima) && isConsonanteNonX(seconda) && isX(terza)) return false;
         if(isConsonanteNonX(prima) && isVocale(seconda) && isConsonanteNonX(terza)) return false;
         if(isX(prima) && isVocale(seconda) && isConsonanteNonX(terza)) return false;
 
