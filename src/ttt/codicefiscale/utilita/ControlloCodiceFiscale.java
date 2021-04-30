@@ -84,8 +84,10 @@ public class ControlloCodiceFiscale {
         char terza = s.charAt(2);
 
         if(isVocale(prima) && (isConsonanteNonX(seconda) || isConsonanteNonX(terza))) return false;
-
-        // mancano i casi
+        if(isVocale(prima) && isX(seconda) && isConsonanteNonX(terza)) return false;
+        if(isVocale(prima) && isConsonanteNonX(terza) && isX(seconda)) return false;
+        if(isConsonanteNonX(prima) && isVocale(seconda) && isConsonanteNonX(terza)) return false;
+        if(isX(prima) && isVocale(seconda) && isConsonanteNonX(terza)) return false;
 
         return true;
     }
