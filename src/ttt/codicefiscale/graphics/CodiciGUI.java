@@ -414,14 +414,14 @@ public class CodiciGUI extends javax.swing.JFrame {
             ce.controllaCodici(codicifiscali_xml);
             checkCodes.setEnabled(false);
             saveToFile.setEnabled(true);
-            res_cont_codes.setText("Sono stati controllati " + ce.getSize() + "codici");
+            res_cont_codes.setText("Sono stati controllati " + ce.getSize() + " codici");
             res_cont_codes.setVisible(true);
         }
     }//GEN-LAST:event_checkCodesActionPerformed
 
     private void saveToFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveToFileActionPerformed
         // TODO add your handling code here:
-        File to_save = selectFile("Salva output", false);
+        File to_save = selectFile("Salva output", false,new File(System.getProperty("user.home")+File.separatorChar+"codiciPersone.xml"));
         XMLDocument generaOutput = ce.generaOutput(to_save);
         XMLWriter xmlw = new XMLWriter(to_save);
         xmlw.writeDocument(generaOutput);
@@ -434,7 +434,7 @@ public class CodiciGUI extends javax.swing.JFrame {
 
     private void selectComuniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectComuniActionPerformed
         // TODO add your handling code here:
-        File selectFile = selectFile("Seleziona codici comuni", true);
+        File selectFile = selectFile("Seleziona codici comuni", true,new File(System.getProperty("user.home")+File.separatorChar+"comuni.xml"));
         if (selectFile != null) {
             comuni = selectFile;
             selectComuni.setText(comuni.getAbsolutePath());
@@ -444,7 +444,7 @@ public class CodiciGUI extends javax.swing.JFrame {
 
     private void selectPersoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectPersoneActionPerformed
         // TODO add your handling code here:
-        File selectFile = selectFile("Seleziona lista persone", true);
+        File selectFile = selectFile("Seleziona lista persone", true,new File(System.getProperty("user.home")+File.separatorChar+"inputPersone.xml"));
         if (selectFile != null) {
             persone = selectFile;
             selectPersone.setText(persone.getAbsolutePath());
@@ -454,7 +454,7 @@ public class CodiciGUI extends javax.swing.JFrame {
 
     private void selectCodiciActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectCodiciActionPerformed
         // TODO add your handling code here:
-        File selectFile = selectFile("Seleziona lista codici fiscali", true);
+        File selectFile = selectFile("Seleziona lista codici fiscali", true, new File(System.getProperty("user.home")+File.separatorChar+"codiciFiscali.xml"));
         if (selectFile != null) {
             codicifiscali = selectFile;
             selectCodici.setText(codicifiscali.getAbsolutePath());
@@ -500,11 +500,12 @@ public class CodiciGUI extends javax.swing.JFrame {
         }
     }
 
-    private File selectFile(String title, boolean open) {
+    private File selectFile(String title, boolean open,File expected_file) {
         JFileChooser chooser = new JFileChooser();
         chooser.setDialogTitle(title);
         chooser.setMultiSelectionEnabled(false);
         chooser.setAcceptAllFileFilterUsed(false);
+        chooser.setSelectedFile(expected_file);
         chooser.setFileFilter(new FileNameExtensionFilter("XML File", "xml"));
         chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         int option = open ? chooser.showOpenDialog(this) : chooser.showSaveDialog(this);
@@ -513,6 +514,7 @@ public class CodiciGUI extends javax.swing.JFrame {
         }
         return null;
     }
+    
 
     /**
      * @param args the command line arguments
