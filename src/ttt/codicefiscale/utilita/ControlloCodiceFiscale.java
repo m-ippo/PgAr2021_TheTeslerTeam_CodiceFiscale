@@ -36,7 +36,10 @@ public class ControlloCodiceFiscale {
         if (!valido) {
             return false;
         }
-        if (!ControllaNumero(matcher.group(5)) || !ControllaMese((matcher.group(4)))) {
+        if(!ControllaMese((matcher.group(4)))){
+            return false;
+        }
+        if (!ControllaNumero(matcher.group(5), matcher.group(4))) {
             return false;
         }
         if(!ControllaLettere(matcher.group(1)) || !ControllaLettere(matcher.group(2))){
@@ -51,9 +54,9 @@ public class ControlloCodiceFiscale {
         return ControllaUltimoCarattere(elemento.getValue());
     }
 
-    private static boolean ControllaNumero(String s) {
-        int valore = Integer.parseInt(s);
-        return (valore > 0 && valore < 32) || (valore >= 41 && valore <= 71);
+    private static boolean ControllaNumero(String giorno, String mese) {
+        int valore = Integer.parseInt(giorno);
+        return (valore > 0 && valore < (mese.equals("B") ? 29 : 32)) || (valore > 40 && valore < (mese.equals("B") ? 69 : 72));
     }
 
     private static boolean ControllaMese(String s) {
