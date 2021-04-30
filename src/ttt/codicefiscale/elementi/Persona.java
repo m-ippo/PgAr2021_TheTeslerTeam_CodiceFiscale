@@ -92,16 +92,19 @@ public class Persona extends XMLElement {
         this.codice_fiscale = ""; // da finire
     }
 
-    public String getCodiceParziale() {
-        String codice_parziale = ConvertiCodice.cognomeCodice(cognome) + ConvertiCodice.nomeCodice(nome);
-        if (sesso.equals("M")) {
-            codice_parziale += ConvertiCodice.dataCodice(data_di_nascita, true);
-        } else {
-            codice_parziale += ConvertiCodice.dataCodice(data_di_nascita, false);
-        }
-        if(ConvertiCodice.comuneCodice(comune_di_nascita) != null){
-            codice_parziale += ConvertiCodice.comuneCodice(comune_di_nascita);
-            return codice_parziale;
+    public String getCodiceParziale(ConvertiCodice convertitore) {
+
+        if(convertitore != null) {
+            String codice_parziale = convertitore.cognomeCodice(cognome) + convertitore.nomeCodice(nome);
+            if (sesso.equals("M")) {
+                codice_parziale += convertitore.dataCodice(data_di_nascita, true);
+            } else {
+                codice_parziale += convertitore.dataCodice(data_di_nascita, false);
+            }
+            if (convertitore.comuneCodice(comune_di_nascita) != null) {
+                codice_parziale += convertitore.comuneCodice(comune_di_nascita);
+                return codice_parziale;
+            }
         }
         return null;
     }

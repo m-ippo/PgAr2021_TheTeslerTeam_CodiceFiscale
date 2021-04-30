@@ -18,14 +18,16 @@ import java.util.Optional;
 
 public class ConvertiCodice {
 
-    private static XMLDocument lista_comuni;
-    private static boolean comuni_gia_letti = false;
+    private  XMLDocument lista_comuni;
+    private boolean comuni_gia_letti = false;
 
-    private static void leggiComuni() throws IOException {
-        File f = new File("src/ttt/codicefiscale/resources/comuni.xml");
-        lista_comuni = XMLLoader.loadDocument(XMLLoader.TipoXML.COMUNI, f, new File("non_usable.xml"));
-        comuni_gia_letti = true;
+    public ConvertiCodice(XMLDocument lista_comuni) {
+        if(lista_comuni != null){
+            this.lista_comuni = lista_comuni;
+            this.comuni_gia_letti = true;
+        }
     }
+
 
     /**
      * Metodo che ritorna una stringa corrispondente alle tre lettere del
@@ -142,29 +144,29 @@ public class ConvertiCodice {
         return ris;
     }
 
-    public static String creaCodicePersona(Persona p) throws IOException {
+    public String creaCodicePersona(Persona p) throws IOException {
 
-        if(!comuni_gia_letti){
-            leggiComuni();
+        if(comuni_gia_letti) {
+
+            String codice = p.getCodiceParziale(this);
+
+            String orinatoPariDispari = GestisciStringhe.pariDispari(codice);
+            int valore_pari_dispari = 0;
+
+            for (int i = 0; i < 8; i++) {
+                valore_pari_dispari += getValoreDispari(orinatoPariDispari.charAt(i));
+            }
+            for (int i = 8; i < 15; i++) {
+                valore_pari_dispari += getValorePari(orinatoPariDispari.charAt(i));
+            }
+
+            valore_pari_dispari = valore_pari_dispari % 26;
+
+            codice += getCarattereControllo(valore_pari_dispari);
+
+            return codice;
         }
-
-        String codice = p.getCodiceParziale();
-
-        String orinatoPariDispari = GestisciStringhe.pariDispari(codice);
-        int valore_pari_dispari = 0;
-
-        for (int i = 0; i < 8; i++) {
-            valore_pari_dispari += getValoreDispari(orinatoPariDispari.charAt(i));
-        }
-        for (int i = 8; i < 15; i++) {
-            valore_pari_dispari += getValorePari(orinatoPariDispari.charAt(i));
-        }
-
-        valore_pari_dispari = valore_pari_dispari % 26;
-
-        codice += getCarattereControllo(valore_pari_dispari);
-
-        return codice;
+        return null;
     }
 
     public static int getValoreDispari(char c) {
@@ -365,11 +367,11 @@ public class ConvertiCodice {
         return ris;
     }
 
-    public static String comuneCodice(String s) {
+    public String comuneCodice(String s) {
         return getCodiceComune(lista_comuni, s);
     }
 
-    public static String getCodiceComune(XMLDocument doc, String nome_comune){
+    public String getCodiceComune(XMLDocument doc, String nome_comune){
         Optional<IXMLElement> comune = doc.getFirstElement("comuni").getElements().stream().filter(ixmlElement ->
         {
             Comune c = (Comune) ixmlElement;
@@ -382,17 +384,18 @@ public class ConvertiCodice {
         return null;
     }
 
-    public static boolean codiceComuneIsPresent(String codice_comune) throws IOException {
+    public boolean codiceComuneIsPresent(String codice_comune) {
 
-        if(!comuni_gia_letti){
-            leggiComuni();
+        if(comuni_gia_letti) {
+            Optional<IXMLElement> comune = lista_comuni.getFirstElement("comuni").getElements().stream().filter(ixmlElement ->
+            {
+                Comune c = (Comune) ixmlElement;
+                return c.getCodiceComune().equals(codice_comune);
+            }).findFirst();
+            return comune.isPresent();
         }
-        Optional<IXMLElement> comune = lista_comuni.getFirstElement("comuni").getElements().stream().filter(ixmlElement ->
-        {
-            Comune c = (Comune) ixmlElement;
-            return c.getCodiceComune().equals(codice_comune);
-        }).findFirst();
-        return comune.isPresent();
+        return false;
+
     }
     
     

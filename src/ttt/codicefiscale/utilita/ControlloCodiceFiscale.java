@@ -1,5 +1,6 @@
 package ttt.codicefiscale.utilita;
 
+import ttt.utils.xml.document.XMLDocument;
 import ttt.utils.xml.document.XMLElement;
 
 import java.io.IOException;
@@ -13,13 +14,19 @@ import static ttt.codicefiscale.utilita.GestisciStringhe.*;
  */
 public class ControlloCodiceFiscale {
 
+    private static ConvertiCodice convertitore;
+
+    public static void setConvertitore(ConvertiCodice c){
+        convertitore = c;
+    }
+
     /**
      * metodo che ritorna true o false in base alla validita del codice
      *
      * @param elemento
      * @return
      */
-    public static boolean Controllo(XMLElement elemento) throws IOException {
+    public static boolean Controllo(XMLElement elemento){
         Pattern pattern = Pattern.compile("([A-Z]{3})([A-Z]{3})([0-9]{2})([A-Z]{1})([0-9]{2})([A-Z]{1})([0-9]{3})([A-Z]{1})");
         Matcher matcher = pattern.matcher(elemento.getValue());
         boolean valido = matcher.find();
@@ -32,7 +39,10 @@ public class ControlloCodiceFiscale {
         if(!ControllaLettere(matcher.group(1)) || !ControllaLettere(matcher.group(2))){
             return false;
         }
-        if(!ControllaComune(matcher.group(6) + matcher.group(7))){
+        if(!ControllaComune(matcher.group(6) + matcher.group(7), convertitore)){
+            return false;
+        }
+        if(!ControllaLettere(matcher.group(1)) || !ControllaLettere(matcher.group(2))){
             return false;
         }
         return ControllaUltimoCarattere(elemento.getValue());
@@ -85,15 +95,15 @@ public class ControlloCodiceFiscale {
 
         if(isVocale(prima) && (isConsonanteNonX(seconda) || isConsonanteNonX(terza))) return false;
         if(isVocale(prima) && isX(seconda) && isConsonanteNonX(terza)) return false;
-        if(isVocale(prima) && isConsonanteNonX(seconda) && isX(terza)) return false;
+        if(isVocale(prima) && isConsonanteNonX(seconda)) return false;
         if(isConsonanteNonX(prima) && isVocale(seconda) && isConsonanteNonX(terza)) return false;
         if(isX(prima) && isVocale(seconda) && isConsonanteNonX(terza)) return false;
 
         return true;
     }
 
-    private static boolean ControllaComune(String codice_comune) throws IOException {
-        return ConvertiCodice.codiceComuneIsPresent(codice_comune);
+    private static boolean ControllaComune(String codice_comune, ConvertiCodice convertitore){
+        return convertitore.codiceComuneIsPresent(codice_comune);
     }
 
 }
