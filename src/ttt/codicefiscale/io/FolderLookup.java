@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.swing.JFileChooser;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 /**
@@ -31,7 +32,7 @@ public class FolderLookup {
             chooser.setDialogTitle("Seleziona cartella di ricerca");
             chooser.setMultiSelectionEnabled(false);
             chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-            int option = chooser.showOpenDialog(null);
+            int option = chooser.showOpenDialog(new JPanel());
             if (option == JFileChooser.APPROVE_OPTION) {
                 changeDirectory(chooser.getSelectedFile());
             }
