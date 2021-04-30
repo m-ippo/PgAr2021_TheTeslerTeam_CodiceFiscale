@@ -1,5 +1,8 @@
 package ttt.codicefiscale.utilita;
 
+/**
+ * Classe per la gestione delle stringhe, in base alle operazioni richieste dai metodi per generare il codice fiscale.
+ */
 public class GestisciStringhe {
 
     /**

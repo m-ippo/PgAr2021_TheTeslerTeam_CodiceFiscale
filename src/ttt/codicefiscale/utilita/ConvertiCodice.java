@@ -7,6 +7,9 @@ import ttt.utils.xml.document.XMLDocument;
 import ttt.utils.xml.engine.interfaces.IXMLElement;
 import java.util.Optional;
 
+/**
+ * Classe per la conversione del codice fiscale dai dati presi dalla persona.
+ */
 public class ConvertiCodice {
 
     private  XMLDocument lista_comuni;
@@ -73,6 +76,12 @@ public class ConvertiCodice {
         return new String(ris);
     }
 
+    /**
+     * Metodo per la creazione del codice della data di nascita.
+     * @param d Data di nascita
+     * @param uomo Sesso
+     * @return Codice data di nascita
+     */
     public static String dataCodice(DataNascita d, boolean uomo) {
 
         String ris = "";
@@ -133,6 +142,11 @@ public class ConvertiCodice {
         return ris;
     }
 
+    /**
+     * Metodo per la creazione del codice fiscale della persona.
+     * @param p Persona di cui creare il codice fiscale.
+     * @return Codice fiscale.
+     */
     public String creaCodicePersona(Persona p){
 
         if(comuni_gia_letti) {
@@ -158,6 +172,11 @@ public class ConvertiCodice {
         return null;
     }
 
+    /**
+     * Metodo che ritorna il valore corrispondente al carattere dispari.
+     * @param c Carattere da trasformare in valore.
+     * @return Valore corrispondente.
+     */
     public static int getValoreDispari(char c) {
         int valore = 0;
 
@@ -274,6 +293,11 @@ public class ConvertiCodice {
         return valore;
     }
 
+    /**
+     * Metodo che ritorna il valore corrispondente al carattere pari.
+     * @param c Carattere da trasformare in valore.
+     * @return Valore corrispondente.
+     */
     public static int getValorePari(char c) {
         int valore;
         valore = Character.isDigit(c)
@@ -321,6 +345,11 @@ public class ConvertiCodice {
         return valore;
     }
 
+    /**
+     * Metodo che ritorna il valore del carattere di controllo del codice fiscale.
+     * @param valore Carattere da trasformare.
+     * @return Carattere di controllo.
+     */
     public static String getCarattereControllo(int valore) {
         String ris = "";
 
@@ -356,10 +385,21 @@ public class ConvertiCodice {
         return ris;
     }
 
+    /**
+     * Metodo che ritorna il codice del comune corrispondente.
+     * @param s Nome del comune.
+     * @return Codice del comune.
+     */
     public String comuneCodice(String s) {
         return getCodiceComune(lista_comuni, s);
     }
 
+    /**
+     * Metodo che cerca e restiuisce, se trovato, il codice codice del comune corrispondente.
+     * @param doc Lista di comuni in cui cercare.
+     * @param nome_comune Nome del comune da cercare.
+     * @return
+     */
     public String getCodiceComune(XMLDocument doc, String nome_comune){
         Optional<IXMLElement> comune = doc.getFirstElement("comuni").getElements().stream().filter(ixmlElement ->
         {
@@ -373,6 +413,11 @@ public class ConvertiCodice {
         return null;
     }
 
+    /**
+     * Metodo che ritorna T/F se il codice del comune cercato è contenuto nella lista.
+     * @param codice_comune Codice da cercare.
+     * @return T/F
+     */
     public boolean codiceComuneIsPresent(String codice_comune) {
 
         if(comuni_gia_letti) {

@@ -8,24 +8,29 @@ import java.util.regex.Pattern;
 import static ttt.codicefiscale.utilita.GestisciStringhe.*;
 
 /**
- * classe che controlla la validita del codice
+ * Classe che controlla la validita di un codice fiscale.
  */
 public class ControlloCodiceFiscale {
 
     private static ConvertiCodice convertitore;
 
+    /**
+     * Imposta il convertitore da utilizzare.
+     * @param c
+     */
     public static void setConvertitore(ConvertiCodice c){
         convertitore = c;
     }
+
     public static ConvertiCodice getConvertitore(){
         return convertitore;
     }
 
     /**
-     * metodo che ritorna true o false in base alla validita del codice
+     * Metodo che ritorna true o false in base alla validita del codice
      *
-     * @param elemento
-     * @return
+     * @param elemento Il codice fiscale da controllare.
+     * @return T/F se il codice fiscale risulta valido o no.
      */
     public static boolean Controllo(XMLElement elemento){
         Pattern pattern = Pattern.compile("([A-Z]{3})([A-Z]{3})([0-9]{2})([A-Z]{1})([0-9]{2})([A-Z]{1})([0-9]{3})([A-Z]{1})");
@@ -52,17 +57,33 @@ public class ControlloCodiceFiscale {
         return ControllaUltimoCarattere(elemento.getValue());
     }
 
+    /**
+     * Metodo per controllare la validita del giorno della data di nascita del codice fiscale.
+     * @param giorno Giorno del codice fiscale da controllare.
+     * @param mese Mese del codice fiscale da controllare.
+     * @return T/F
+     */
     private static boolean ControllaNumero(String giorno, String mese) {
         int valore = Integer.parseInt(giorno);
         return (valore > 0 && valore < (mese.equals("B") ? 29 : 32)) || (valore > 40 && valore < (mese.equals("B") ? 69 : 72));
     }
 
-    private static boolean ControllaMese(String s) {
-        return s.charAt(0) == 'A' || s.charAt(0) == 'B' || s.charAt(0) == 'C' || s.charAt(0) == 'D' || s.charAt(0) == 'E'
-                || s.charAt(0) == 'H' || s.charAt(0) == 'L' || s.charAt(0) == 'M' || s.charAt(0) == 'P' || s.charAt(0) == 'R'
-                || s.charAt(0) == 'S' || s.charAt(0) == 'T';
+    /**
+     * Metodo per controllare la validita del mese della data di nascita del codice fiscale.
+     * @param mese Mese del codice fiscale da controllare.
+     * @return T/F
+     */
+    private static boolean ControllaMese(String mese) {
+        return mese.charAt(0) == 'A' || mese.charAt(0) == 'B' || mese.charAt(0) == 'C' || mese.charAt(0) == 'D' || mese.charAt(0) == 'E'
+                || mese.charAt(0) == 'H' || mese.charAt(0) == 'L' || mese.charAt(0) == 'M' || mese.charAt(0) == 'P' || mese.charAt(0) == 'R'
+                || mese.charAt(0) == 'S' || mese.charAt(0) == 'T';
     }
 
+    /**
+     * Metodo per controllare la validita del carattere di controllo del codice fiscale.
+     * @param s Ultimo carattere.
+     * @return T/F
+     */
     private static boolean ControllaUltimoCarattere(String s) {
 
         char[] codice_meno_ultimo = new char[15];
@@ -91,6 +112,11 @@ public class ControlloCodiceFiscale {
         return carattere_giusto.equals(st);
     }
 
+    /**
+     * Metodo per controllare la validita delle lettere del nome/cognome del codice fiscale.
+     * @param s Nome o cognome.
+     * @return T/F
+     */
     public static boolean ControllaLettere(String s){
 
         char prima = s.charAt(0);
@@ -104,6 +130,12 @@ public class ControlloCodiceFiscale {
         return !(isX(prima) && isVocale(seconda) && isConsonanteNonX(terza));
     }
 
+    /**
+     * Metodo per controllare la validita del codice del comune del codice fiscale.
+     * @param codice_comune Codice del comune da controllare.
+     * @param convertitore Convertitore da utilizzare.
+     * @return T/F
+     */
     private static boolean ControllaComune(String codice_comune, ConvertiCodice convertitore){
         return convertitore.codiceComuneIsPresent(codice_comune);
     }
