@@ -369,7 +369,6 @@ public class ConvertiCodice {
         if(cercaCodiceComune(lista_comuni.getElements(), s) != null){
             return cercaCodiceComune(lista_comuni.getElements(), s);
         }
-
         return null;
     }
 

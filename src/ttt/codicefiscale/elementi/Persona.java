@@ -99,8 +99,12 @@ public class Persona extends XMLElement {
         } else {
             codice_parziale += ConvertiCodice.dataCodice(data_di_nascita, false);
         }
-        codice_parziale += ConvertiCodice.comuneCodice(comune_di_nascita);
-        return codice_parziale;
+        if(ConvertiCodice.comuneCodice(comune_di_nascita) != null){
+            codice_parziale += ConvertiCodice.comuneCodice(comune_di_nascita);
+            return codice_parziale;
+        }
+        return null;
+
     }
 
 }

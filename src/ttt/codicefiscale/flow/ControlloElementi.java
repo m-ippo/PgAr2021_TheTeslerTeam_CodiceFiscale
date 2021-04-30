@@ -6,6 +6,7 @@
 package ttt.codicefiscale.flow;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,7 +37,12 @@ public class ControlloElementi {
     public void riempiTabella(XMLDocument persone) {
         persone.getFirstElement("persone").getElements().forEach((persona) -> {
             Persona p = (Persona) persona;
-            String codiceFiscale = ConvertiCodice.creaCodicePersona(p);
+            String codiceFiscale = null;
+            try {
+                codiceFiscale = ConvertiCodice.creaCodicePersona(p);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             codici_persone.put(codiceFiscale, p);
         });
     }
