@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class ConvertiCodice {
 
@@ -366,18 +367,18 @@ public class ConvertiCodice {
 
     public static String comuneCodice(String s) {
 
-        if(cercaCodiceComune(lista_comuni.getElements(), s) != null){
-            return cercaCodiceComune(lista_comuni.getElements(), s);
-        }
-        return null;
+        return cercaCodiceComune(lista_comuni, s);
     }
 
-    public static String cercaCodiceComune(List<IXMLElement> l, String nome_comune){
+    public static String cercaCodiceComune(XMLDocument doc, String nome_comune){
 
-        for(int i = 0; i < l.get(0).getElements().size(); i++){
-            if(l.get(0).getElements().get(i).getElements().get(0).getValue().equals(nome_comune)){
-                return l.get(0).getElements().get(i).getElements().get(1).getValue();
-            }
+        Optional<IXMLElement> comune = doc.getFirstElement("comuni").getElements().stream().filter(ixmlElement -> {
+            Comune c = (Comune) ixmlElement;
+            return c.getNome().equals(nome_comune);
+        }).findFirst();
+
+        if(comune.isPresent()){
+            return ((Comune) comune.get()).getCodiceComune();
         }
         return null;
     }

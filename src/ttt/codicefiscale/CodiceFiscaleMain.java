@@ -46,6 +46,5 @@ public class CodiceFiscaleMain {
             System.out.println(lista_comuni.getElements().get(0).getElements().get(i).getElements().get(0).getValue());
             System.out.println(lista_comuni.getElements().get(0).getElements().get(i).getElements().get(1).getValue());
         }
-
     }
 }
