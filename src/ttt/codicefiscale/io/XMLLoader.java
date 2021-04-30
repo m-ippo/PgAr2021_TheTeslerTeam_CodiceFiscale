@@ -56,35 +56,32 @@ public final class XMLLoader {
      * @param risultato Il file XML di output che viene impostato nel documento
      * di ritorno.
      * @return Il documento formattato secondo la tipologia richiesta.
+     * @throws java.io.IOException Nel caso sia impossibile caricare i files
      */
-    public static XMLDocument loadDocument(TipoXML tipo, File da_caricare, File risultato) {
+    public static XMLDocument loadDocument(TipoXML tipo, File da_caricare, File risultato) throws IOException {
         if (da_caricare != null && da_caricare.exists() && da_caricare.isFile()) {
-            try {
-                XMLDocument documento;
-                XMLReader reader = new XMLReader(da_caricare);
-                documento = reader.readDocument();
+            XMLDocument documento;
+            XMLReader reader = new XMLReader(da_caricare);
+            documento = reader.readDocument();
 
-                XMLEngine engine;
-                switch (tipo) {
-                    case CODICI_FISCALI:
-                        engine = new XMLEngine(documento, ELEMENTI_CODICI_FICALI);
-                        break;
-                    case COMUNI:
-                        engine = new XMLEngine(documento, ELEMENTI_COMUNI);
-                        break;
-                    case PERSONE:
-                        engine = new XMLEngine(documento, ELEMENTI_PERSONE);
-                        break;
-                    default:
-                        engine = new XMLEngine(documento);
-                        break;
-                }
-                XMLDocument finale = new XMLDocument(risultato);
-                engine.morph(finale);
-                return finale;
-            } catch (IOException ex) {
-                Logger.getLogger(XMLLoader.class.getName()).log(Level.SEVERE, null, ex);
+            XMLEngine engine;
+            switch (tipo) {
+                case CODICI_FISCALI:
+                    engine = new XMLEngine(documento, ELEMENTI_CODICI_FICALI);
+                    break;
+                case COMUNI:
+                    engine = new XMLEngine(documento, ELEMENTI_COMUNI);
+                    break;
+                case PERSONE:
+                    engine = new XMLEngine(documento, ELEMENTI_PERSONE);
+                    break;
+                default:
+                    engine = new XMLEngine(documento);
+                    break;
             }
+            XMLDocument finale = new XMLDocument(risultato);
+            engine.morph(finale);
+            return finale;
         }
         return new XMLDocument(da_caricare);
     }
@@ -125,7 +122,7 @@ public final class XMLLoader {
                     GeneralFormatter.decrementIndents();
                     tipi.remove(scelto_2);
                     scelte.add(new Pair<>(scelto, scelto_2));
-                }else{
+                } else {
                     return null;
                 }
             } while (tipi.size() > 0 && scelte.size() < TipoXML.values().length);

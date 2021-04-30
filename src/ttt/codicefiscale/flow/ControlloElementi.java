@@ -35,6 +35,7 @@ public class ControlloElementi {
     HashMap<String, Persona> codici_persone = new HashMap<>();
 
     public void riempiTabella(XMLDocument persone) {
+        codici_persone.clear();
         persone.getFirstElement("persone").getElements().forEach((persona) -> {
             Persona p = (Persona) persona;
             String codiceFiscale = null;
@@ -47,14 +48,18 @@ public class ControlloElementi {
         });
     }
 
+    public int getSize(){
+        return codici_persone.size();
+    }
+    
     ArrayList<Codice> invalidi = new ArrayList<>();
     ArrayList<Codice> spaiati = new ArrayList<>();
     ArrayList<Codice> validi = new ArrayList<>();
 
-    public void controllaCodici(XMLDocument document) {
+    public void controllaCodici(XMLDocument codici) {
         invalidi.clear();
         spaiati.clear();
-        List<IXMLElement> elements = document.getFirstElement("codici").getElements();
+        List<IXMLElement> elements = codici.getFirstElement("codici").getElements();
         elements.stream().map(codice -> (Codice) codice).forEachOrdered(c -> {
             if (!ControlloCodiceFiscale.Controllo(c)) {
                 invalidi.add(c);
