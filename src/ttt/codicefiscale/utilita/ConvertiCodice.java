@@ -366,12 +366,10 @@ public class ConvertiCodice {
     }
 
     public static String comuneCodice(String s) {
-
-        return cercaCodiceComune(lista_comuni, s);
+        return getCodiceComune(lista_comuni, s);
     }
 
-    public static String cercaCodiceComune(XMLDocument doc, String nome_comune){
-
+    public static String getCodiceComune(XMLDocument doc, String nome_comune){
         Optional<IXMLElement> comune = doc.getFirstElement("comuni").getElements().stream().filter(ixmlElement -> {
             Comune c = (Comune) ixmlElement;
             return c.getNome().equals(nome_comune);
@@ -382,4 +380,6 @@ public class ConvertiCodice {
         }
         return null;
     }
+    
+    
 }
