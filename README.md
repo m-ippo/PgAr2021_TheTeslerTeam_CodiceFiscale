@@ -8,3 +8,9 @@ Una volta caricati i file si possono generare i codici fiscali delle persone, e 
 L'interazione con l'utente è stata fatta tramite un banale form swing.
 
 Per capire come funziona la lettura e scrittura della libreria è possibile consultare la repository: [EsempioXML](https://github.com/ThatCmd/EsempioXML).
+
+### The Tesler Team
+Componenti:
+ * Mattia Ippoliti
+ * Nicholas Fada
+ * Gabriele Vianello
