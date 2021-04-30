@@ -3,17 +3,8 @@ package ttt.codicefiscale.utilita;
 import ttt.codicefiscale.elementi.Comune;
 import ttt.codicefiscale.elementi.Persona;
 import ttt.codicefiscale.elementi.DataNascita;
-import ttt.codicefiscale.io.FolderLookup;
-import ttt.codicefiscale.io.XMLLoader;
 import ttt.utils.xml.document.XMLDocument;
-import ttt.utils.xml.document.XMLElement;
 import ttt.utils.xml.engine.interfaces.IXMLElement;
-import ttt.utils.xml.io.XMLReader;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 public class ConvertiCodice {
@@ -134,8 +125,8 @@ public class ConvertiCodice {
         }
 
         int giorno = d.getGiorno();
-        if (!uomo) { // se persona è donna aggiunge 30 al valore del giorno
-            giorno += 30;
+        if (!uomo) { // se persona è donna aggiunge 40 al valore del giorno
+            giorno += 40;
         }
         if (giorno < 10) { // se valore del giorno è minore di 10 aggiunge uno 0 nella stringa finale (per regole c.f.)
             ris += "0";

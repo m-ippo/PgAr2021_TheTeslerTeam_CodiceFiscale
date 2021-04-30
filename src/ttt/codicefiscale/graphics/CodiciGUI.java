@@ -7,11 +7,10 @@ package ttt.codicefiscale.graphics;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -19,7 +18,6 @@ import ttt.codicefiscale.flow.ControlloElementi;
 import ttt.codicefiscale.io.XMLLoader;
 import ttt.codicefiscale.utilita.ControlloCodiceFiscale;
 import ttt.codicefiscale.utilita.ConvertiCodice;
-import ttt.utils.console.menu.utils.Pair;
 import ttt.utils.xml.document.XMLDocument;
 import ttt.utils.xml.io.XMLWriter;
 
@@ -407,6 +405,7 @@ public class CodiciGUI extends javax.swing.JFrame {
             checkCodes.setEnabled(true);
             generateCodes.setEnabled(false);
             res_gen_codes.setText("Sono stati generati " + ce.getSize() + " codici fiscali");
+            res_gen_codes.setVisible(true);
         }
     }//GEN-LAST:event_generateCodesActionPerformed
 
@@ -416,6 +415,7 @@ public class CodiciGUI extends javax.swing.JFrame {
             checkCodes.setEnabled(false);
             saveToFile.setEnabled(true);
             res_cont_codes.setText("Sono stati controllati " + ce.getSize() + "codici");
+            res_cont_codes.setVisible(true);
         }
     }//GEN-LAST:event_checkCodesActionPerformed
 
@@ -426,7 +426,10 @@ public class CodiciGUI extends javax.swing.JFrame {
         XMLWriter xmlw = new XMLWriter(to_save);
         xmlw.writeDocument(generaOutput);
         res_gen_output.setText("File salvato correttamente.");
+        res_gen_output.setVisible(true);
         saveToFile.setEnabled(false);
+        JOptionPane.showMessageDialog(this, "Salvato con successo!", "Salvataggio", JOptionPane.INFORMATION_MESSAGE);
+        System.exit(0);
     }//GEN-LAST:event_saveToFileActionPerformed
 
     private void selectComuniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectComuniActionPerformed
@@ -484,6 +487,8 @@ public class CodiciGUI extends javax.swing.JFrame {
         ControlloCodiceFiscale.setConvertitore(new ConvertiCodice(comuni_xml));
         selectPanel.setEnabled(false);
         loadPanel.setEnabled(false);
+        res_load.setVisible(true);
+        res_load.setText("Caricato con successo!");
         selectCodici.setEnabled(false);
         selectComuni.setEnabled(false);
         selectPersone.setEnabled(false);
@@ -495,8 +500,6 @@ public class CodiciGUI extends javax.swing.JFrame {
         if (comuni != null && persone != null && codicifiscali != null) {
             loadXMLs.setVisible(true);
             loadXMLs.setEnabled(true);
-            res_load.setVisible(true);
-            res_load.setEnabled(true);
         }
     }
 
