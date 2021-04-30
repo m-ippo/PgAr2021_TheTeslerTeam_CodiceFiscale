@@ -1,9 +1,11 @@
 package ttt.codicefiscale.utilita;
 
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
-
 import ttt.utils.xml.document.XMLElement;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static ttt.codicefiscale.utilita.GestisciStringhe.*;
 
 /**
  * classe che controlla la validita del codice
@@ -24,6 +26,12 @@ public class ControlloCodiceFiscale {
             return false;
         }
         if (!ControllaNumero(matcher.group(5)) || !ControllaMese((matcher.group(4)))) {
+            return false;
+        }
+        if(!ControllaLettere(matcher.group(1)) || !ControllaLettere(matcher.group(2))){
+            return false;
+        }
+        if(!ControllaComune(matcher.group(6) + matcher.group(7))){
             return false;
         }
         return ControllaUltimoCarattere(elemento.getValue());
@@ -66,6 +74,21 @@ public class ControlloCodiceFiscale {
         ultimo[0] = s.charAt(15);
         String st = new String(ultimo);
         return carattere_giusto.equals(st);
+    }
+
+    public static boolean ControllaLettere(String s){
+
+        char prima = s.charAt(0);
+        char seconda = s.charAt(1);
+        char terza = s.charAt(2);
+
+        if(isVocale(prima) && (isConsonanteNonX(seconda) || isConsonanteNonX(terza))) return false;
+
+        return true;
+    }
+
+    private static boolean ControllaComune(String codice_comune){
+        return ConvertiCodice.codiceComuneIsPresent(codice_comune);
     }
 
 }

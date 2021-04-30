@@ -370,19 +370,25 @@ public class ConvertiCodice {
     }
 
     public static String getCodiceComune(XMLDocument doc, String nome_comune){
-        Optional<IXMLElement> comune = doc.getFirstElement("comuni").getElements().stream().filter(ixmlElement -> 
-        
+        Optional<IXMLElement> comune = doc.getFirstElement("comuni").getElements().stream().filter(ixmlElement ->
         {
             Comune c = (Comune) ixmlElement;
             return c.getNome().equals(nome_comune);
-        }
-        
-        ).findFirst();
+        }).findFirst();
 
         if(comune.isPresent()){
             return ((Comune) comune.get()).getCodiceComune();
         }
         return null;
+    }
+
+    public static boolean codiceComuneIsPresent(String codice_comune){
+        Optional<IXMLElement> comune = lista_comuni.getFirstElement("comuni").getElements().stream().filter(ixmlElement ->
+        {
+            Comune c = (Comune) ixmlElement;
+            return c.getCodiceComune().equals(codice_comune);
+        }).findFirst();
+        return comune.isPresent();
     }
     
     

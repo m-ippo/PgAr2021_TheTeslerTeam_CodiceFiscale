@@ -38,6 +38,18 @@ public class GestisciStringhe {
         return lettera == 'A' || lettera == 'E' || lettera == 'I' || lettera == 'O' || lettera == 'U';
     }
 
+    public static boolean isX(char lettera){
+        return lettera == 'X';
+    }
+
+    public static boolean isConsonante(char lettera){
+        return !isVocale(lettera);
+    }
+
+    public static boolean isConsonanteNonX(char lettera){
+        return isConsonante(lettera) && !isX(lettera);
+    }
+
     public static int quanteConsonanti(String s) {
         int ris = 0;
         for (int i = 0; i < s.length(); i++) {
