@@ -23,6 +23,8 @@ import ttt.utils.xml.document.XMLDocument;
 import ttt.utils.xml.document.XMLTag;
 import ttt.utils.xml.engine.interfaces.IXMLElement;
 
+import static ttt.codicefiscale.utilita.ControlloCodiceFiscale.getConvertitore;
+
 /**
  *
  * @author TTT
@@ -39,11 +41,9 @@ public class ControlloElementi {
         persone.getFirstElement("persone").getElements().forEach((persona) -> {
             Persona p = (Persona) persona;
             String codiceFiscale = null;
-            try {
-                codiceFiscale = ConvertiCodice.creaCodicePersona(p);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
+            codiceFiscale = getConvertitore().creaCodicePersona(p);
+
             codici_persone.put(codiceFiscale, p);
         });
     }

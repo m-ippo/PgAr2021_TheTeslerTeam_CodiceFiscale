@@ -144,7 +144,7 @@ public class ConvertiCodice {
         return ris;
     }
 
-    public String creaCodicePersona(Persona p) throws IOException {
+    public String creaCodicePersona(Persona p){
 
         if(comuni_gia_letti) {
 

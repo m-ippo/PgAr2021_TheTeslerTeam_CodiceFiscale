@@ -19,6 +19,9 @@ public class ControlloCodiceFiscale {
     public static void setConvertitore(ConvertiCodice c){
         convertitore = c;
     }
+    public static ConvertiCodice getConvertitore(){
+        return convertitore;
+    }
 
     /**
      * metodo che ritorna true o false in base alla validita del codice
