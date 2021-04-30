@@ -1,10 +1,13 @@
 package ttt.codicefiscale.utilita;
 
 public class GestisciStringhe {
+
     /**
-     * Metodo che ordina una stringa mettendo prima le consonanti e poi le vocali.
+     * Metodo che ordina una stringa mettendo prima le consonanti e poi le
+     * vocali.
      *
-     * @param daOrdinare stringa da ordinare
+     * @param daOrdinare stringa da ordinare.
+     * @return Stringa riordinata.
      */
     public static String ordina(String daOrdinare) {
         daOrdinare = daOrdinare.toUpperCase();
@@ -38,15 +41,15 @@ public class GestisciStringhe {
         return lettera == 'A' || lettera == 'E' || lettera == 'I' || lettera == 'O' || lettera == 'U';
     }
 
-    public static boolean isX(char lettera){
+    public static boolean isX(char lettera) {
         return lettera == 'X';
     }
 
-    public static boolean isConsonante(char lettera){
+    public static boolean isConsonante(char lettera) {
         return !isVocale(lettera);
     }
 
-    public static boolean isConsonanteNonX(char lettera){
+    public static boolean isConsonanteNonX(char lettera) {
         return isConsonante(lettera) && !isX(lettera);
     }
 
@@ -61,7 +64,8 @@ public class GestisciStringhe {
     }
 
     /**
-     * Metodo che ritorna una stringa riordinata in modo che prima ci siano tutti i caratteri in posizione dispari e poi pari
+     * Metodo che ritorna una stringa riordinata in modo che prima ci siano
+     * tutti i caratteri in posizione dispari e poi pari
      *
      * @param s Stringa da riordinare
      * @return Stringa ordinata

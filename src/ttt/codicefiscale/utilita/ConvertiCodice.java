@@ -65,9 +65,7 @@ public class ConvertiCodice {
                 System.arraycopy(ordinato, 0, ris, 0, 3);
             }
         } else {
-            for (int i = 0; i < ordinato.length; i++) {
-                ris[i] = ordinato[i];
-            }
+            System.arraycopy(ordinato, 0, ris, 0, ordinato.length);
             for (int i = ordinato.length; i < 3; i++) {
                 ris[i] = 'X';
             }

@@ -9,8 +9,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import ttt.codicefiscale.elementi.Codice;
 import ttt.codicefiscale.elementi.Codici;
 import ttt.codicefiscale.elementi.Cognome;
@@ -31,18 +29,32 @@ import ttt.utils.xml.engine.XMLEngine;
 import ttt.utils.xml.io.XMLReader;
 
 /**
+ * Si occupa del caricamento tramite la libreria Utils di leggere i file e
+ * convertirli in classi comode per il progetto.
  *
- * @author gabri
+ * @author TTT
  */
 public final class XMLLoader {
 
     private XMLLoader() {
     }
 
+    /**
+     * Classi utilizzate per il file comuni.xml
+     */
     public static final Class<? extends XMLElement>[] ELEMENTI_COMUNI = new Class[]{Comune.class, Comuni.class, Codice.class, Nome.class};
+    /**
+     * Classi utilizzate per il file codiciFiscali.xml
+     */
     public static final Class<? extends XMLElement>[] ELEMENTI_CODICI_FICALI = new Class[]{Codice.class, Codici.class};
+    /**
+     * Classi utilizzate per il file inputPersone.xml
+     */
     public static final Class<? extends XMLElement>[] ELEMENTI_PERSONE = new Class[]{Persone.class, Persona.class, Nome.class, Cognome.class, Sesso.class, ComuneNascita.class, DataNascita.class};
 
+    /**
+     * Tipologia di xml caricato.
+     */
     public static enum TipoXML {
         CODICI_FISCALI, COMUNI, PERSONE;
     }
@@ -86,6 +98,13 @@ public final class XMLLoader {
         return new XMLDocument(da_caricare);
     }
 
+    /**
+     * Inutilizzata: è stata rimpiazzata dalla parte grafica. Incompleta e non
+     * verrà completata.
+     *
+     * @param fp La selezione della cartella base.
+     * @return Lista di coppie File-TipoXML.
+     */
     public static ArrayList<Pair<File, TipoXML>> selezionaFiles(FolderLookup fp) {
         ArrayList<TipoXML> tipi = new ArrayList<>();
         Collections.addAll(tipi, TipoXML.values());

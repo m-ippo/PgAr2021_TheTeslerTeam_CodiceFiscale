@@ -12,8 +12,8 @@ import ttt.utils.xml.engine.annotations.Tag;
 import ttt.utils.xml.engine.enums.MethodType;
 
 /**
- *
- * @author gabri
+ *Rappresenta l'elemento "codici"
+ * @author TTT
  */
 @Element(Name = "codici", CanHaveValue = false)
 public class Codici extends XMLElement {

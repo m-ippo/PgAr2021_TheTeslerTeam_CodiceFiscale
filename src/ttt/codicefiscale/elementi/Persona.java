@@ -2,11 +2,16 @@ package ttt.codicefiscale.elementi;
 
 import ttt.codicefiscale.utilita.ConvertiCodice;
 import ttt.utils.xml.document.XMLElement;
+import ttt.utils.xml.engine.XMLEngine;
 import ttt.utils.xml.engine.annotations.Element;
 import ttt.utils.xml.engine.annotations.EngineMethod;
 import ttt.utils.xml.engine.annotations.Tag;
 import ttt.utils.xml.engine.enums.MethodType;
 
+/**
+ * Rappresenta l'elemento "persona"
+ * @author TTT
+ */
 @Element(Name = "persona")
 public class Persona extends XMLElement {
 
@@ -17,23 +22,12 @@ public class Persona extends XMLElement {
     private String comune_di_nascita;
     private char carattere_di_controllo;
     private String codice_fiscale;
-    
+
     private Integer id;
 
-    /*
-    public Persona(String nome, String cognome, String sesso, DataNascita data_di_nascita, String comune_di_nascita) {
-        this.nome = nome;
-        this.cognome = cognome;
-        this.sesso = sesso;
-        this.data_di_nascita = data_di_nascita;
-        this.comune_di_nascita = comune_di_nascita;
-    }
-    */
-
-
-
     /**
-     *
+     * Inizializza i valori della classe solo dopo esser stata completata da {@link XMLEngine#morph(ttt.utils.xml.document.XMLDocument)
+     * }
      */
     @EngineMethod(MethodType = MethodType.CALC)
     public void init() {
@@ -50,10 +44,16 @@ public class Persona extends XMLElement {
 
     @EngineMethod(MethodType = MethodType.SET)
     @Tag(Name = "id")
-    public void setID(String value){
+    public void setID(String value) {
         id = Integer.parseInt(value);
     }
-    
+
+    @EngineMethod(MethodType = MethodType.GET)
+    @Tag(Name = "id")
+    public int getID() {
+        return id;
+    }
+
     public String getNome() {
         return nome;
     }
@@ -74,7 +74,7 @@ public class Persona extends XMLElement {
         return comune_di_nascita;
     }
 
-    public char getTasse() {
+    public char getCarattereControllo() {
         return carattere_di_controllo;
     }
 
@@ -93,13 +93,12 @@ public class Persona extends XMLElement {
     }
 
     public String getCodiceParziale(ConvertiCodice convertitore) {
-
-        if(convertitore != null) {
-            String codice_parziale = convertitore.cognomeCodice(cognome) + convertitore.nomeCodice(nome);
+        if (convertitore != null) {
+            String codice_parziale = ConvertiCodice.cognomeCodice(cognome) + ConvertiCodice.nomeCodice(nome);
             if (sesso.equals("M")) {
-                codice_parziale += convertitore.dataCodice(data_di_nascita, true);
+                codice_parziale += ConvertiCodice.dataCodice(data_di_nascita, true);
             } else {
-                codice_parziale += convertitore.dataCodice(data_di_nascita, false);
+                codice_parziale += ConvertiCodice.dataCodice(data_di_nascita, false);
             }
             if (convertitore.comuneCodice(comune_di_nascita) != null) {
                 codice_parziale += convertitore.comuneCodice(comune_di_nascita);

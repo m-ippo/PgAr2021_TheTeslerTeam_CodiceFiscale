@@ -5,16 +5,17 @@ import ttt.utils.xml.engine.annotations.Element;
 import ttt.utils.xml.engine.annotations.EngineMethod;
 import ttt.utils.xml.engine.enums.MethodType;
 
+/**
+ * Rappresenta l'elemento "comune"
+ *
+ * @author TTT
+ */
 @Element(Name = "comune", CanHaveTags = false)
 public class Comune extends XMLElement {
 
     private String nome;
     private String codice_comune;
 
-    /*public Comune(String nome, String codice_comune) {
-        this.nome = nome;
-        this.codice_comune = codice_comune;
-    }*/
     public Comune() {
         super("comune");
     }

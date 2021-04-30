@@ -1,9 +1,7 @@
 package ttt.codicefiscale.utilita;
 
-import ttt.utils.xml.document.XMLDocument;
 import ttt.utils.xml.document.XMLElement;
 
-import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -103,9 +101,7 @@ public class ControlloCodiceFiscale {
         if(isVocale(prima) && isX(seconda) && isConsonanteNonX(terza)) return false;
         if(isVocale(prima) && isConsonanteNonX(seconda)) return false;
         if(isConsonanteNonX(prima) && isVocale(seconda) && isConsonanteNonX(terza)) return false;
-        if(isX(prima) && isVocale(seconda) && isConsonanteNonX(terza)) return false;
-
-        return true;
+        return !(isX(prima) && isVocale(seconda) && isConsonanteNonX(terza));
     }
 
     private static boolean ControllaComune(String codice_comune, ConvertiCodice convertitore){

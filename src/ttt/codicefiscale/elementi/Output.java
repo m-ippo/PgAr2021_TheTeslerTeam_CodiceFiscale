@@ -9,8 +9,9 @@ import ttt.utils.xml.document.XMLElement;
 import ttt.utils.xml.engine.annotations.Element;
 
 /**
+ * Rappresenta l'elemento "output"
  *
- * @author gabri
+ * @author TTT
  */
 @Element(Name = "output", CanHaveValue = false)
 public class Output extends XMLElement {

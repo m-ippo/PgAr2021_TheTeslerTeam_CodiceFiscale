@@ -9,8 +9,9 @@ import ttt.utils.xml.document.XMLElement;
 import ttt.utils.xml.engine.annotations.Element;
 
 /**
+ * Rappresenta l'elemento "comuni"
  *
- * @author gabri
+ * @author TTT
  */
 @Element(Name = "comuni", CanHaveValue = false)
 public class Comuni extends XMLElement {

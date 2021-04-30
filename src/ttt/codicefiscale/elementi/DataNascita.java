@@ -5,18 +5,18 @@ import ttt.utils.xml.engine.annotations.Element;
 import ttt.utils.xml.engine.annotations.EngineMethod;
 import ttt.utils.xml.engine.enums.MethodType;
 
+/**
+ * Rappresenta l'elemento "data_nascita"
+ *
+ * @author TTT
+ */
 @Element(Name = "data_nascita")
 public class DataNascita extends XMLElement {
 
     private int anno;
     private int mese;
     private int giorno;
-    //private String data_stringa;
 
-    /*public DataNascita(String data_stringa) {
-        this.data_stringa = data_stringa;
-        convertiData();
-    }*/
     public DataNascita() {
         super("data_nascita");
     }

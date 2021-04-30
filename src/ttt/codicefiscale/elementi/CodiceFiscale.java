@@ -9,14 +9,15 @@ import ttt.utils.xml.document.XMLElement;
 import ttt.utils.xml.engine.annotations.Element;
 
 /**
+ * Rappresenta l'elemento "codice_fiscale"
  *
- * @author gabri
+ * @author TTT
  */
-@Element(Name = "codice_fiscale",CanHaveTags = false)
-public class CodiceFiscale extends XMLElement{
+@Element(Name = "codice_fiscale", CanHaveTags = false)
+public class CodiceFiscale extends XMLElement {
 
     public CodiceFiscale() {
         super("codice_fiscale");
     }
-    
+
 }

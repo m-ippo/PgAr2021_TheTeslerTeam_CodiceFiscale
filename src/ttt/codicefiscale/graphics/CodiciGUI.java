@@ -22,8 +22,9 @@ import ttt.utils.xml.document.XMLDocument;
 import ttt.utils.xml.io.XMLWriter;
 
 /**
+ * Form che permette l'interazione con l'utente.
  *
- * @author gabri
+ * @author TTT
  */
 public class CodiciGUI extends javax.swing.JFrame {
 
@@ -398,7 +399,12 @@ public class CodiciGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-
+    /**
+     * Alla pressione del tasto per generare i codici fiscali delle persone
+     * caricate.
+     *
+     * @param evt L'evento (ignorato)
+     */
     private void generateCodesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateCodesActionPerformed
         if (persone_xml != null) {
             ce.riempiTabella(persone_xml);
@@ -409,6 +415,12 @@ public class CodiciGUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_generateCodesActionPerformed
 
+    /**
+     * Alla pressione del tasto per generare controllare i codici fiscali
+     * dell'elenco caricato.
+     *
+     * @param evt L'evento (ignorato)
+     */
     private void checkCodesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkCodesActionPerformed
         if (codicifiscali_xml != null) {
             ce.controllaCodici(codicifiscali_xml);
@@ -418,10 +430,15 @@ public class CodiciGUI extends javax.swing.JFrame {
             res_cont_codes.setVisible(true);
         }
     }//GEN-LAST:event_checkCodesActionPerformed
-
+    /**
+     * Alla pressione del tasto viene creato il file finale che contiene le
+     * informazioni sulle persone e la presenza dei codici fiscali.
+     *
+     * @param evt L'evento (ignorato)
+     */
     private void saveToFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveToFileActionPerformed
         // TODO add your handling code here:
-        File to_save = selectFile("Salva output", false,new File(System.getProperty("user.home")+File.separatorChar+"codiciPersone.xml"));
+        File to_save = selectFile("Salva output", false, new File(System.getProperty("user.home") + File.separatorChar + "codiciPersone.xml"));
         XMLDocument generaOutput = ce.generaOutput(to_save);
         XMLWriter xmlw = new XMLWriter(to_save);
         xmlw.writeDocument(generaOutput);
@@ -432,29 +449,45 @@ public class CodiciGUI extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_saveToFileActionPerformed
 
+    /**
+     * Alla pressione del tasto si può scegliere il file che verrà interpretato
+     * come lista dei comuni.
+     *
+     * @param evt L'evento (ignorato)
+     */
     private void selectComuniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectComuniActionPerformed
         // TODO add your handling code here:
-        File selectFile = selectFile("Seleziona codici comuni", true,new File(System.getProperty("user.home")+File.separatorChar+"comuni.xml"));
+        File selectFile = selectFile("Seleziona codici comuni", true, new File(System.getProperty("user.home") + File.separatorChar + "comuni.xml"));
         if (selectFile != null) {
             comuni = selectFile;
             selectComuni.setText(comuni.getAbsolutePath());
             refreshAvailable();
         }
     }//GEN-LAST:event_selectComuniActionPerformed
-
+    /**
+     * Alla pressione del tasto si può scegliere il file che verrà interpretato
+     * come lista delle persone.
+     *
+     * @param evt L'evento (ignorato)
+     */
     private void selectPersoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectPersoneActionPerformed
         // TODO add your handling code here:
-        File selectFile = selectFile("Seleziona lista persone", true,new File(System.getProperty("user.home")+File.separatorChar+"inputPersone.xml"));
+        File selectFile = selectFile("Seleziona lista persone", true, new File(System.getProperty("user.home") + File.separatorChar + "inputPersone.xml"));
         if (selectFile != null) {
             persone = selectFile;
             selectPersone.setText(persone.getAbsolutePath());
             refreshAvailable();
         }
     }//GEN-LAST:event_selectPersoneActionPerformed
-
+    /**
+     * Alla pressione del tasto si può scegliere il file che verrà interpretato
+     * come lista dei codici fiscali.
+     *
+     * @param evt L'evento (ignorato)
+     */
     private void selectCodiciActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectCodiciActionPerformed
         // TODO add your handling code here:
-        File selectFile = selectFile("Seleziona lista codici fiscali", true, new File(System.getProperty("user.home")+File.separatorChar+"codiciFiscali.xml"));
+        File selectFile = selectFile("Seleziona lista codici fiscali", true, new File(System.getProperty("user.home") + File.separatorChar + "codiciFiscali.xml"));
         if (selectFile != null) {
             codicifiscali = selectFile;
             selectCodici.setText(codicifiscali.getAbsolutePath());
@@ -462,6 +495,12 @@ public class CodiciGUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_selectCodiciActionPerformed
 
+    /**
+     * Alla pressione del tasto vengono caricati e letti i file precedentemente
+     * selezionati.
+     *
+     * @param evt L'evento (ignorato)
+     */
     private void loadXMLsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadXMLsActionPerformed
         try {
             comuni_xml = XMLLoader.loadDocument(XMLLoader.TipoXML.COMUNI, comuni, new File("comuni.tmp"));
@@ -493,6 +532,9 @@ public class CodiciGUI extends javax.swing.JFrame {
         loadXMLs.setEnabled(false);
     }//GEN-LAST:event_loadXMLsActionPerformed
 
+    /**
+     * Abilita il tasto di caricamento solo se i file sono stati selezionati.
+     */
     public void refreshAvailable() {
         if (comuni != null && persone != null && codicifiscali != null) {
             loadXMLs.setVisible(true);
@@ -500,7 +542,16 @@ public class CodiciGUI extends javax.swing.JFrame {
         }
     }
 
-    private File selectFile(String title, boolean open,File expected_file) {
+    /**
+     * Mostra la schermata di selezione e salvataggio di un file.
+     *
+     * @param title Titolo della finestra
+     * @param open Se {@code true} allora viene mostrata la finestra per
+     * selezionare un file, altrimenti per salvarlo.
+     * @param expected_file Il file che ci si aspetta essere selezionato.
+     * @return Il file selezionato, se presente.
+     */
+    private File selectFile(String title, boolean open, File expected_file) {
         JFileChooser chooser = new JFileChooser();
         chooser.setDialogTitle(title);
         chooser.setMultiSelectionEnabled(false);
@@ -514,7 +565,6 @@ public class CodiciGUI extends javax.swing.JFrame {
         }
         return null;
     }
-    
 
     /**
      * @param args the command line arguments

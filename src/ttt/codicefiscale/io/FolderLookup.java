@@ -14,8 +14,10 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 /**
+ * Inutilizzata: è stata rimpiazzata dalla parte grafica. Incompleta e non verrà
+ * completata.
  *
- * @author gabri
+ * @author TTT
  */
 public class FolderLookup {
 

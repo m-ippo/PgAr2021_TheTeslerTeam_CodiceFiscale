@@ -13,6 +13,8 @@ import ttt.utils.console.menu.Menu;
 import ttt.utils.console.menu.utils.Pair;
 
 /**
+ * Inutilizzata: è stata rimpiazzata dalla parte grafica. Incompleta e non verrà
+ * completata.
  *
  * @author TTT
  */

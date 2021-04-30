@@ -22,8 +22,11 @@ import ttt.utils.xml.document.XMLTag;
 import ttt.utils.xml.engine.interfaces.IXMLElement;
 
 import static ttt.codicefiscale.utilita.ControlloCodiceFiscale.getConvertitore;
+import ttt.utils.xml.document.XMLElement;
 
 /**
+ * Esegue i controlli finali e la compilazione del file {@link XMLDocument}
+ * finale.
  *
  * @author TTT
  */
@@ -34,6 +37,12 @@ public class ControlloElementi {
 
     HashMap<String, Persona> codici_persone = new HashMap<>();
 
+    /**
+     * Genera il codice fiscale di ogni persona e lo associa alla persona
+     * stessa.
+     *
+     * @param persone Il documento XML che contiene l'elenco delle persone.
+     */
     public void riempiTabella(XMLDocument persone) {
         codici_persone.clear();
         persone.getFirstElement("persone").getElements().forEach((persona) -> {
@@ -43,6 +52,11 @@ public class ControlloElementi {
         });
     }
 
+    /**
+     * Ritorna la dimensione dei codici fiscali generati.
+     *
+     * @return Numero codici generati.
+     */
     public int getSize() {
         return codici_persone.size();
     }
@@ -51,6 +65,13 @@ public class ControlloElementi {
     ArrayList<Codice> spaiati = new ArrayList<>();
     ArrayList<Codice> validi = new ArrayList<>();
 
+    /**
+     * Esegue il controllo dei codici: sia la validità che la presenza tra
+     * quelli generati dal metodo {@link ControlloElementi#riempiTabella(ttt.utils.xml.document.XMLDocument)
+     * }.
+     *
+     * @param codici Il documento XML che contiene la lista di codici fiscali.
+     */
     public void controllaCodici(XMLDocument codici) {
         invalidi.clear();
         spaiati.clear();
@@ -61,13 +82,19 @@ public class ControlloElementi {
             } else {
                 if (!codici_persone.containsKey(c.getValue())) {
                     spaiati.add(c);
-                }else{
+                } else {
                     validi.add(c);
                 }
             }
         });
     }
 
+    /**
+     * Genera la struttura che può essere salvata come file XML.
+     *
+     * @param file_output Il file fittizzio a cui verrà associato il documento.
+     * @return Il documento XML generato come assieme di {@link XMLElement}.
+     */
     public XMLDocument generaOutput(File file_output) {
         XMLDocument document = new XMLDocument(file_output);
         Output tab_output = new Output();
