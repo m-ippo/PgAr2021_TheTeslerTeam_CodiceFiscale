@@ -1,9 +1,9 @@
 package ttt.codicefiscale.elementi;
 
+import ttt.utils.engines.enums.MethodType;
 import ttt.utils.xml.document.XMLElement;
 import ttt.utils.xml.engine.annotations.Element;
-import ttt.utils.xml.engine.annotations.EngineMethod;
-import ttt.utils.xml.engine.enums.MethodType;
+import ttt.utils.engines.interfaces.EngineMethod;
 
 /**
  * Rappresenta l'elemento "comune"

@@ -441,7 +441,7 @@ public class CodiciGUI extends javax.swing.JFrame {
         File to_save = selectFile("Salva output", false, new File(System.getProperty("user.dir") + File.separatorChar + "codiciPersone.xml"));
         XMLDocument generaOutput = ce.generaOutput(to_save);
         XMLWriter xmlw = new XMLWriter(to_save);
-        xmlw.writeDocument(generaOutput);
+        xmlw.writeDocument(generaOutput, true);
         res_gen_output.setText("File salvato correttamente.");
         res_gen_output.setVisible(true);
         saveToFile.setEnabled(false);

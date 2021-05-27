@@ -1,12 +1,12 @@
 package ttt.codicefiscale.elementi;
 
 import ttt.codicefiscale.utilita.ConvertiCodice;
+import ttt.utils.engines.enums.MethodType;
 import ttt.utils.xml.document.XMLElement;
 import ttt.utils.xml.engine.XMLEngine;
 import ttt.utils.xml.engine.annotations.Element;
-import ttt.utils.xml.engine.annotations.EngineMethod;
+import ttt.utils.engines.interfaces.EngineMethod;
 import ttt.utils.xml.engine.annotations.Tag;
-import ttt.utils.xml.engine.enums.MethodType;
 
 /**
  * Rappresenta l'elemento "persona"
